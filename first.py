@@ -1,48 +1,104 @@
-Kot Ilya Ai-182
+#Кот Илья Аи-182
+from random import randrange
+import time
+from datetime import datetime
+import random
 
-#Сортировка 1
-def BubbleSort(someArray):
-    for i in range(0, len(someArray) - 1):
-        swapCheck = False
-        for j in range(len(someArray) - i - 1):
-            if (someArray[j] > someArray[j + 1]):
-                someArray[j], someArray[j + 1] = someArray[j + 1], someArray[j]
-                SswapCheck = True
-    if (not swapCheck): 
-        swapCheck = False
-    return someArray
+#buble
+my_list = [ randrange(0, 15) for i in range(10) ]
+#Сортировка слиянием
+def merge_sort(mass):
+    lenght = len(mass)
+    if lenght >= 2:
+        mid = int(lenght / 2)
+        mass = merge(merge_sort(mass[:mid]), merge_sort(mass[mid:]))
+        return mass;
+def merge(mass1, mass2): 
+    res = [] 
+    while mass1 and mass2: 
+        if mass1[0] < mass2[0]: 
+            res.append(mass1.pop(0)) 
+        else: res.append(mass2.pop(0)) 
+    if mass1: 
+        res.extend(mass1) 
+    if mass2: 
+        res.extend(mass2) 
+    return res
 
-myArray = [234, 655, 618, 687, 524, 698, 947, 332, 890, 124, 508, 809, 325, 456, 344]
-print(BubbleSort(myArray))
+max_list = len( my_list )
 
-#Сортировка 2
-def SelectionSort(someArray):
-    for i in range(len(someArray) - 1):
-        minElement = i
-        for j in range(i + 1, len(someArray)):
-            if (someArray[j] < someArray[minElement]):
-                minElement = j
-        if minElement != i:
-            someArray[i], someArray[minElement] = someArray[minElement], someArray[i]
-    return someArray
+i = 0
+while i < max_list:
 
-anotherMyArray = [342, 231, 231, 602, 23, 312, 540, 233, 534, 472, 544, 233, 968, 423, 114]
-taskFromPractice = [50, 80, 19, 86, 35, 7, 60, 48, 51]
-print(SelectionSort(anotherMyArray))
-print(SelectionSort(taskFromPractice))
+    j = 0
+    while j < max_list-i-1:
+#Сортировка кучей
+def heapify(nums, heap_size, root_index):
+    largest = root_index
+    left_child = (2 * root_index) + 1
+    right_child = (2 * root_index) + 2
+    if left_child < heap_size and nums[left_child] > nums[largest]:
+        largest = left_child
+    if right_child < heap_size and nums[right_child] > nums[largest]:
+        largest = right_child
+    if largest != root_index:
+        nums[root_index], nums[largest] = nums[largest], nums[root_index]
+        heapify(nums, heap_size, largest)
 
-#Сортировка 3
-def InsertionSort(someArray):
-    for i in range(1, len(someArray)):
-        checkingNumber = someArray[i]
-        j = i - 1
-        while j >= 0 and checkingNumber < someArray[j]:
-            someArray[j + 1] = someArray[j]
-            j -= 1
-        someArray[j + 1] = checkingNumber
-    return someArray
+        if my_list[ j ] > my_list[ j + 1 ]:
+def heap_sort(nums):  
+    n = len(nums)
+    for i in range(n, -1, -1):
+        heapify(nums, n, i)
+    for i in range(n - 1, 0, -1):
+        nums[i], nums[0] = nums[0], nums[i]
+        heapify(nums, i, 0)
 
-andAnotherAnotherMyArray = [456, 234, 123, 243, 652, 339, 323, 432, 383, 967, 123, 225, 174, 234, 411]
-anotherTaskFromPractice = [77, 89, 74, 68, 70, 49, 5, 62, 51]
-print(InsertionSort(andAnotherAnotherMyArray))
-print(InsertionSort(anotherTaskFromPractice))
+            my_list[ j ], my_list[ j + 1] = my_list[ j + 1], my_list[ j ]
+        j+=1
+    i += 1
+
+print( my_list )
+#Быстрая Сортировка
+def QuickSort(A):
+    if len(A) <= 1:
+        return A
+    else:
+        q = random.choice(A)
+        L = []
+        M = []
+        R = []
+        for elem in A:
+            if elem < q:
+                L.append(elem) 
+            elif elem > q: 
+                R.append(elem) 
+            else: 
+                M.append(elem)
+        return QuickSort(L) + M + QuickSort(R)
+
+mass = '72940610672875';
+array = []
+i = 0
+lenght = len(mass)
+
+while i < lenght:
+    array.append(int(mass[i]))
+    i += 1
+
+from datetime import datetime
+print(array) 
+start_time = datetime.now()
+# do your work here
+print(QuickSort(array))
+end_time = datetime.now()
+print('Duration: {}'.format(end_time - start_time)) 
+print('Duration: {}'.format(end_time - start_time))
+array = []
+i = 0
+lenght = len(mass)
+
+while i < lenght:
+    array.append(int(mass[i]))
+    i += 1
+print(heap_sort(array))
